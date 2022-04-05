@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <!--  절대경로로 프로젝트의 css 에 있는 css 를 불러옴. 타임리프가 기존것을 덮음 -->
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container" style="max-width: 600px">
+    <div class="py-5 text-center">
+        <h2>회원 목록</h2>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-primary float-end"
+                    onclick="location.href='addMemberForm.html'"
+                    th:onclick="|location.href='@{/basic/members/add}'|"
+                    type="button">회원 등록
+            </button>
+        </div>
+    </div>
+
+
+    <hr class="my-4">
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>회원이름</th>
+                <th>이메일</th>
+                <th>나이</th>
+                <th>회원등급</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="memberList : ${memberList}">
+                <td th:text="${memberList.getUsername()}">회원이름</td>
+                <td th:text="${memberList.getEmail()}">이메일</td>
+                <td th:text="${memberList.getAge()}">나이</td>
+                <td th:text="${memberList.getGrade()}">회원등급</td>
+            </tr>
+
+
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

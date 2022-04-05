@@ -2,7 +2,9 @@ package com.springreview.domain.member;
 
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -16,6 +18,11 @@ public class MemoryMemberRepository implements MemberRepository{
         member.setId(sequence++);
         memberList.put(member.getId(), member);
         return member;
+    }
+
+    @Override
+    public List<Member> findAllMember() {
+        return new ArrayList<>(memberList.values());
     }
 
     @Override

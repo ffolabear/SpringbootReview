@@ -1,5 +1,7 @@
 package com.springreview.domain.member;
 
+import java.util.List;
+
 //추후에 DB 연동을 할 수 있으므로 회원 데이터에 접근하는 계층을 분리
 public interface MemberRepository {
 
@@ -9,6 +11,8 @@ public interface MemberRepository {
     //⬜ 외부 시스템 연동 회원 저장소
 
     Member save(Member member);
+
+    List<Member> findAllMember();
 
     Member findById(Long memberId);
 
