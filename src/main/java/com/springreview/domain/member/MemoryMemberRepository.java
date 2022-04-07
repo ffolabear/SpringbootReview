@@ -29,4 +29,14 @@ public class MemoryMemberRepository implements MemberRepository{
     public Member findById(Long memberId) {
         return memberList.get(memberId);
     }
+
+    @Override
+    public void update(Long memberId, Member updateMember) {
+        Member findMember = findById(memberId);
+        findMember.setUsername(updateMember.getUsername());
+        findMember.setEmail(updateMember.getEmail());
+        findMember.setAge(updateMember.getAge());
+        findMember.setGrade(updateMember.getGrade());
+
+    }
 }

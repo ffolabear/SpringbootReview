@@ -2,9 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
+    <title>전체 회원 조회하기</title>
     <!--  절대경로로 프로젝트의 css 에 있는 css 를 불러옴. 타임리프가 기존것을 덮음 -->
     <link th:href="@{/css/bootstrap.min.css}"
-          href="../../css/bootstrap.min.css" rel="stylesheet">
+          href="../css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -37,11 +38,17 @@
             </thead>
             <tbody>
 
-            <tr th:each="memberList : ${memberList}">
-                <td th:text="${memberList.getUsername()}">회원이름</td>
-                <td th:text="${memberList.getEmail()}">이메일</td>
-                <td th:text="${memberList.getAge()}">나이</td>
-                <td th:text="${memberList.getGrade()}">회원등급</td>
+            <tr th:each="member : ${memberList}">
+                <td>
+                    <a href="member.html"
+                       th:href="@{/basic/members/{memberId} (memberId=${member.id})}"
+                       th:text="${member.getUsername()}">
+                        회원이름
+                    </a>
+                </td>
+                <td th:text="${member.getEmail()}">이메일</td>
+                <td th:text="${member.getAge()}">나이</td>
+                <td th:text="${member.getGrade()}">회원등급</td>
             </tr>
 
 

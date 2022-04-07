@@ -16,4 +16,6 @@ public interface MemberRepository {
 
     Member findById(Long memberId);
 
+    void update(Long memberId, Member updateMember);
+
 }
