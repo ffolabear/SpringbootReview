@@ -1,16 +1,17 @@
 package com.springreview.domain.member;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Data
 public class Member {
 
     private Long id;
     private String username;
     private String email;
     private int age;
-    Grade grade;
+    private Grade grade;
 
     public Member() {
     }

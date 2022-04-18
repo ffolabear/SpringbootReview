@@ -31,8 +31,15 @@ public class MemberController {
         return "basic/memberList";
     }
 
+    @ModelAttribute("gradeType")
+    public Grade[] grades() {
+        return Grade.values();
+    }
+
+
     @GetMapping("/{memberId}")
     public String member(@PathVariable long memberId, Model model) {
+
         Member member = memberRepository.findById(memberId);
         model.addAttribute("member", member);
         return "basic/member";
@@ -40,7 +47,8 @@ public class MemberController {
 
 
     @GetMapping("/add")
-    public String addMember() {
+    public String addMember(Model model) {
+        model.addAttribute("member", new Member());
         return "basic/addMemberForm";
     }
 
@@ -50,18 +58,11 @@ public class MemberController {
     public String addMember(@ModelAttribute Member member, RedirectAttributes redirectAttributes) {
 
         Member savedMember = memberRepository.save(member);
-//        log.info("입력된 멤버 ID : {}", member.getId());
-//        log.info("입력된 멤버 이름 : {}", member.getUsername());
-//        log.info("입력된 멤버 메일 : {}", member.getEmail());
-//        log.info("입력된 멤버 나이 : {}", member.getAge());
-//        log.info("입력된 멤버 등급 : {}", member.getGrade());
-//
-//
-//        log.info("저장된 멤버 ID : {}", savedMember.getId());
-//        log.info("저장된 멤버 이름 : {}", savedMember.getUsername());
-//        log.info("저장된 멤버 메일 : {}", savedMember.getEmail());
-//        log.info("저장된 멤버 나이 : {}", savedMember.getAge());
-//        log.info("저장된 멤버 등급 : {}", savedMember.getGrade());
+        log.info("member.username= {}", savedMember.getUsername());
+        log.info("member.email= {}", savedMember.getEmail());
+        log.info("member.age= {}", savedMember.getAge());
+        log.info("member.grade= {}", savedMember.getGrade());
+
         redirectAttributes.addAttribute("memberId", savedMember.getId());
         redirectAttributes.addAttribute("stasus", true);
         return "redirect:/basic/members";
