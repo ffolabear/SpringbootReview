@@ -81,13 +81,4 @@ public class MemberController {
         return "redirect:/basic/members/{memberId}";
     }
 
-
-    //테스트용 데이터
-    @PostConstruct
-    private void init() {
-        memberRepository.save(new Member("Bear", "bear@naver.com", 25, Grade.Basic));
-        memberRepository.save(new Member("Kirin", "kirin@naver.com", 23, Grade.Basic));
-    }
-
-
 }
