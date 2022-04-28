@@ -35,4 +35,11 @@
 - **Issue** : `Thymeleaf` 를 사용할때 `.name()` 는 호출된 값의 이름을 String으로 리턴하는 Enum 클래스의 메서드.
 
 <br>
+
+#### 2022.04.28 
+
+- CI/CD 를 위한 Jenkins 연동
+
+<br>
+<br>
 <br>
