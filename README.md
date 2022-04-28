@@ -38,7 +38,7 @@
 
 #### 2022.04.28 
 
-- CI/CD 를 위한 Jenkins 연동
+- CI/CD 를 위한 Jenkins 연동 
 
 <br>
 <br>
