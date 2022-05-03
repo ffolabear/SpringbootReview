@@ -2,41 +2,68 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>회원 추가하기</title>
+    <title>회원    추가하기</title>
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <style>
+
         .container {
             max-width: 560px;
-        } </style>
+        }
+
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+
+    </style>
 </head>
 <body>
 
 <div class="container">
+
     <div class="py-5 text-center">
-        <h2>회원 등록 폼</h2>
+        <h2 th:text="#{page.addMember}">회원 등록</h2>
     </div>
 
-    <h4 class="mb-3">회원정보 작성</h4>
-
     <form action="memberList.html" th:action th:object="${member}" method="post">
+
         <div>
-            <label for="username">회원 이름</label>
-            <input type="text" id="username" th:field="*{username}" class="form-control" placeholder="이름을 입력하세요">
+            <label for="username" th:text="#{label.member.username}">회원 이름</label>
+            <input type="text" id="username" th:field="*{username}"
+                   th:errorclass="field-error"
+                   class="form-control" placeholder="이름을 입력하세요">
+
+            <div class="field-error" th:errors="*{username}">
+                회원 이름 오류
+            </div>
         </div>
 
         <div>
-            <label for="email">회원 이메일</label>
-            <input type="text" id="email" th:field="*{email}" class="form-control" placeholder="이메일을 입력하세요">
+            <label for="email" th:text="#{label.member.email}">회원 이메일</label>
+            <input type="text" id="email" th:field="*{email}"
+                   th:errorclass="field-error"
+                   class="form-control" placeholder="이메일을 입력하세요">
+
+            <div class="field-error" th:errors="*{email}">
+                회원 이메일 오류
+            </div>
         </div>
 
         <div>
-            <label for="age">회원 나이</label>
-            <input type="text" id="age" th:field="*{age}" class="form-control" placeholder="나이를 입력하세요">
+            <label for="age" th:text="#{label.member.age}">회원 나이</label>
+            <input type="text" id="age" th:field="*{age}"
+                   th:errorclass="field-error"
+                   class="form-control" placeholder="나이를 입력하세요">
+
+            <div class="field-error" th:errors="*{age}">
+                회원 나이 오류
+            </div>
         </div>
 
         <!-- radio button -->
         <div>
-            <div>회원 등급</div>
+            <!--            <div>회원 등급</div>-->
+            <label for="age" th:text="#{label.member.grade}">회원 등급</label>
             <div th:each="grade : ${gradeType}" class="form-check form-check-inline">
                 <input type="radio" th:field="*{grade}" th:value="${grade.name()}" class="form-check-input">
                 <label th:for="${#ids.prev('grade')}" th:text="${grade.description}" class="form-check-label">

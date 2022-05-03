@@ -66,7 +66,7 @@ public class MemberController {
         log.info("member.grade= {}", savedMember.getGrade());
 
         redirectAttributes.addAttribute("memberId", savedMember.getId());
-        redirectAttributes.addAttribute("stasus", true);
+        redirectAttributes.addAttribute("status", true);
         return "redirect:/basic/members";
     }
 
@@ -77,24 +77,38 @@ public class MemberController {
                                       RedirectAttributes redirectAttributes,
                                       Model model) {
 
+        //이름이 없으면 오류
         if (!StringUtils.hasText(member.getUsername())){
             bindingResult.addError(new FieldError("member", "username", member.getUsername(), false, null, null, "회원 이름은 필수입니다."));
         }
 
-        if (!StringUtils.hasText(member.getUsername())) {
+        //이메일이 없으면 오류
+        if (!StringUtils.hasText(member.getEmail())) {
             bindingResult.addError(new FieldError("member", "email", member.getEmail(), false, null, null, "이메일 입력은 필수입니다."));
         }
 
         //이메일 정규식 수정 필요
+        //이메일은 있지만 형식이 잘못된경우
         if (StringUtils.hasText(member.getUsername()) && !member.getEmail().matches("[@]]")) {
-            bindingResult.addError(new FieldError("member", "email", member.getEmail(), false, null, null, "이메일 형식으로 입력해주세요."));
+            bindingResult.addError(new FieldError("member", "email", member.getEmail(), false, null, null, "올바르지 않은 이메일 형식입니다."));
 
         }
 
-        //타입 오류 해결필요
-//        if (!StringUtils.hasText(member.getAge())) {
-//            bindingResult.addError(new FieldError("member", "age", member.getAge(), false, null, null, "나이 입력은 필수입니다."));
-//        }
+        //강의에 있는 글로벌에러는 아직 적용할 대상이 없음
+
+        if (member.getAge() == null || member.getAge() < 0) {
+            bindingResult.addError(new FieldError("member", "age", member.getAge(), false, null, null, "올바르지 않은 나이입니다."));
+        }
+
+        if (bindingResult.hasErrors()) {
+            log.info("bindingResult = {}", bindingResult);
+            return "basic/addMemberForm";
+        }
+
+        Member savedMember = memberRepository.save(member);
+        redirectAttributes.addAttribute("memberId", savedMember.getId());
+        redirectAttributes.addAttribute("status", true);
+
 
         return "redirect:/basic/members";
     }

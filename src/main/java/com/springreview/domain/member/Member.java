@@ -10,7 +10,7 @@ public class Member {
     private Long id;
     private String username;
     private String email;
-    private int age;
+    private Integer age;
     private Grade grade;
 
     public Member() {
