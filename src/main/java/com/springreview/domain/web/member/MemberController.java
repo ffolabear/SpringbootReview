@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -53,8 +56,7 @@ public class MemberController {
     }
 
 
-
-    @PostMapping("/add")
+    //    @PostMapping("/add")
     public String addMember(@ModelAttribute Member member, RedirectAttributes redirectAttributes) {
 
         Member savedMember = memberRepository.save(member);
@@ -65,6 +67,35 @@ public class MemberController {
 
         redirectAttributes.addAttribute("memberId", savedMember.getId());
         redirectAttributes.addAttribute("stasus", true);
+        return "redirect:/basic/members";
+    }
+
+    //검증로직 추가 버전
+    @PostMapping("/add")
+    public String addMemberValidation(@ModelAttribute Member member,
+                                      BindingResult bindingResult,
+                                      RedirectAttributes redirectAttributes,
+                                      Model model) {
+
+        if (!StringUtils.hasText(member.getUsername())){
+            bindingResult.addError(new FieldError("member", "username", member.getUsername(), false, null, null, "회원 이름은 필수입니다."));
+        }
+
+        if (!StringUtils.hasText(member.getUsername())) {
+            bindingResult.addError(new FieldError("member", "email", member.getEmail(), false, null, null, "이메일 입력은 필수입니다."));
+        }
+
+        //이메일 정규식 수정 필요
+        if (StringUtils.hasText(member.getUsername()) && !member.getEmail().matches("[@]]")) {
+            bindingResult.addError(new FieldError("member", "email", member.getEmail(), false, null, null, "이메일 형식으로 입력해주세요."));
+
+        }
+
+        //타입 오류 해결필요
+//        if (!StringUtils.hasText(member.getAge())) {
+//            bindingResult.addError(new FieldError("member", "age", member.getAge(), false, null, null, "나이 입력은 필수입니다."));
+//        }
+
         return "redirect:/basic/members";
     }
 
